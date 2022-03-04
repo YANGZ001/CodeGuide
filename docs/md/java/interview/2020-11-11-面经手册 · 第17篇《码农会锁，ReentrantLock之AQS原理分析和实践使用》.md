@@ -172,7 +172,7 @@ CAS 是一种无锁算法，这种操作是 CPU 指令集操作，只有一步�
 
 #### 4.1 获取锁流程图
 
-![图 17-2 获取锁流程图](https://bugstack.cn/assets/images/2020/interview/interview-17-2.png)
+![图 17-2 获取锁流程图](https://bugstack.cn/assets/images/2020/interview/interview-17-2.png) 有误。CAS修改共享变量state成功？“是”应该走左边，“否”走下面，此处是与否写反了。
 
 图 17-2 就是整个 ReentrantLock 中获取锁的核心流程，包括非公平锁和公平锁的一些交叉流程。接下来我们就以此按照此流程来讲解相应的源码部分。
 
