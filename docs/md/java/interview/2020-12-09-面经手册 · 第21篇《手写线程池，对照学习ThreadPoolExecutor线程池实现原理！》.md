@@ -461,7 +461,7 @@ private Runnable getTask() {
 
 - getTask 方法从阻塞队列中获取等待被执行的任务，也就是一条条往出拿线程方法。
 - `if (rs >= SHUTDOWN ...`，判断线程是否关闭。
-- `wc = workerCountOf(c)，wc > corePoolSize`，如果工作线程数超过核心线程数量 `corePoolSize` 并且 workQueue 不为空，则增加工作线程。但如果超时未获取到线程，则会把大于 corePoolSize 的线程销毁掉。
+- `wc = workerCountOf(c)，wc > corePoolSize`，如果工作线程数`wc`超过最大线程数量 `maximumPoolSize`，减少工作线程数`compareAndDecrementWorkerCount(c)`。或者工作线程数`wc`大于核心线程数`corePoolSize`并且上次获取超时或工作队列`workQueue`为空，则会把大于 corePoolSize 的线程销毁掉。
 - `timed`，是 `allowCoreThreadTimeOut` 得来的。最终 `timed` 为 true 时，则通过阻塞队列的poll方法进行超时控制。
 - 如果在 `keepAliveTime` 时间内没有获取到任务，则返回null。如果为false，则阻塞。
 
